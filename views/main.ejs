@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <title> Planning Sportif </title>
+</head>
+
+<body>
+    <form method="POST">
+        <div class='top'>
+            <div id='teamname'>
+                <h1>Team Name</h1>
+            </div>
+            <div id='menu'>
+                <h2>
+                    <nav>
+                        <ul>
+                            <li>
+                                <label for="user-select">Profil</label>
+                                <select name="users" id="user-select">
+                                    <% for(var i = 0 ; i < users.length ; i++) {  %>
+                                    <option value="<%= users[i].iduser %>"><%= users[i].lastname %> <%= users[i].firstname %></option>
+                                    <% } %>
+                                </select>
+                            </li>
+                            <li>
+                                <a href='/logout'>Log out</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </h2>
+            </div>
+        </div>
+
+        <div class='onglets'>
+            <ul>
+                <li>
+                    <a href="/calendar"> Calendar </a>
+                </li>
+                <li>
+                    <a href="/members"> Members </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="actions">
+            <ul>
+                <li>
+                    <a href="/calendar/add">Add</a>
+                </li>
+            </ul>
+        </div>
+        <h1> Events list </h1>
+        <ul>
+
+            <% for(var i = 0 ; i < events.length ; i++) {  %>
+            <li>
+                <%= events[i].idcal %> - <%= events[i].Type %> - <%= events[i].Name %> - <%= events[i].Date %> <a
+                    href='/calendar/update/<%= events[i].idcal %>'>
+                    Edit </a> <a href='/calendar/remove/<%= events[i].idcal %>'>
+                    Delete </a> </br>
+
+                Will u be there ? <a href='/calendar/details/<%= events[i].idcal %>'> View details </a> </br>
+
+                <input type="submit" name="submit_yes" value="YES" formaction="/calendar/yes/<%= events[i].idcal %>"> </input>  
+                <input type="submit" name="submit_no" value="NO" formaction="/calendar/no/<%= events[i].idcal %>"> </input> 
+                
+                <!-- <a href='/calendar/update/<%= events[i].idcal %>/yes'> YES </a> - <a
+                    href='/calendar/update/<%= events[i].idcal %>/no'> NO </a> -->
+
+            </li>
+            <% } %>
+        </ul>
+        </div>
+    </form>
+</body>
+
+</html>

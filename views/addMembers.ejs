@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning Sportif</title>
+</head>
+
+<body>
+    <h1>Add a member</h1>
+    <form action="/members/new" method="POST">
+        <label for="llastname">Lastname :</label>
+        <input id="llastname" type="text" name="lastname" value =""><br>
+        <label for="lfirstname">Firstname :</label>
+        <input id="lfirstname" type="text" name="firstname" value =""><br>
+        <label for="lposition">Position :</label>
+        <input id="lposition" type="text" name="position" value ="" > <br>
+        <label for="lstatus">Status :</label>
+        <input id="lstatus" type="text" name="status" value ="" > <br>
+        <input type="submit" name="save" value="Sauver"><br>
+    </form>
+    <div><a href="/members">Retour à la liste</a></div>
+</body>
+
+</html>

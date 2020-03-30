@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <title> Planning Sportif </title>
+</head>
+
+<body>
+    <div class='top'>
+        <div id='teamname'>
+            <h1>Team Name</h1>
+        </div>
+        <div id='menu'>
+            <h2>
+                <nav>
+                    <ul>
+                        <li>
+                            <label for="user-select">Profil</label>
+
+                            <select name="users" id="user-select">
+                                <% for(var i = 0 ; i < users.length ; i++) {  %>
+                                <option value="users"><%= users[i].lastname %> <%= users[i].firstname %></option>
+                                <% } %>
+                            </select>
+                        </li>
+                        <li>
+                            <a href='/logout'>Log out</a>
+                        </li>
+                    </ul>
+                </nav>
+            </h2>
+        </div>
+    </div>
+
+    <div class='onglets'>
+        <ul>
+            <li>
+                <a href="/calendar"> Calendar </a>
+            </li>
+            <li>
+                <a href="/members"> Members </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="actions">
+        <ul>
+            <li>
+                <a href="/members/add">Add</a>
+            </li>
+        </ul>
+    </div>
+    <h1> Members list </h1>
+    <% for(var i = 0 ; i < users.length ; i++) {  %>
+    <li>
+        <%= users[i].lastname %> <%= users[i].firstname %> - <%= users[i].position %> - <%= users[i].status %> <a
+            href='/members/update/<%= users[i].iduser %>'>
+            Edit </a> <a href='/members/remove/<%= users[i].iduser %>'>
+            Delete </a>
+    </li>
+    <% } %>
+
+</body>
+
+</html>

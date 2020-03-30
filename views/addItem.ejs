@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning Sportif</title>
+</head>
+
+<body>
+    <h1>Add an Event</h1>
+    <form action="/calendar/new" method="POST">
+        <label for="ltype">Type :</label>
+        <input id="ltype" type="text" name="type" value =""><br>
+        <label for="lname">Name :</label>
+        <input id="lname" type="text" name="name" value =""><br>
+        <label for="ldate">Date :</label>
+        <input id="ldate" type="date" name="date" value ="" > <br>
+        <input type="submit" name="save" value="Sauver"><br>
+    </form>
+    <div><a href="/calendar">Retour à la liste</a></div>
+</body>
+
+</html>

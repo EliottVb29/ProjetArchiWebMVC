@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <title> Planning Sportif </title>
+</head>
+
+<body>
+    <h1>Event Update : </h1>
+    <form action="/calendar/update" method="POST">
+        <input type="hidden" value="<%= idcal %>" name="idcal">
+        <label for="ltype">Type :</label>
+        <input id="ltype" type="text" name="type" value ="<%= Type %>"><br>
+        <label for="lname">Name :</label>
+        <input id="lname" type="text" name="name" value ="<%= Name %>"><br>
+        <label for="ldate">Date :</label>
+        <input id="ldate" type="date" name="date" value ="<%= Date %>"><br>
+        <input type="submit" name="save" value="Sauver"><br>
+    </form>
+
+    <div><a href="/calendar">Retour à la liste</a></div>
+</body>
+
+</html>

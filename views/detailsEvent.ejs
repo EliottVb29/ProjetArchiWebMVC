@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <title> Planning Sportif </title>
+</head>
+
+<body>
+    <div class='top'>
+        <div id='teamname'>
+            <h1>Team Name</h1>
+        </div>
+        <div id='menu'>
+            <h2>
+                <nav>
+                    <ul>
+                        <li>
+                            <label for="user-select">Profil</label>
+                            <select name="users" id="user-select">
+                                <% for(var i = 0 ; i < users.length ; i++) {  %>
+                                <option value="<%= users[i].iduser %>"><%= users[i].lastname %>
+                                    <%= users[i].firstname %></option>
+                                <% } %>
+                            </select>
+                        </li>
+                        <li>
+                            <a href='/logout'>Log out</a>
+                        </li>
+                    </ul>
+                </nav>
+            </h2>
+        </div>
+    </div>
+
+    <div class='onglets'>
+        <ul>
+            <li>
+                <a href="/calendar"> Calendar </a>
+            </li>
+            <li>
+                <a href="/members"> Members </a>
+            </li>
+        </ul>
+    </div>
+
+    <h1> Event Details </h1>
+    <ul>
+        <li>
+            Type : <%= event.type %>
+        </li>
+        <li>
+            Name :  <%= event.name %>
+        </li>
+        <li>
+            Date : <%= event.date %>
+        </li>
+        <li>
+            List of users attending the event :
+            <ul>
+                <% for(var i = 0 ; i < listUserYes.length ; i++) {  %>
+                <li>
+                    <%= listUserYes[i].lastname %> <%= listUserYes[i].firstname %> - <%= listUserYes[i].position %>
+                </li>
+                <% } %>
+            </ul>
+
+        </li>
+        <li>
+            List of users not attending the event :
+            <ul>
+                <% for(var i = 0 ; i < listUserNo.length ; i++) {  %>
+                <li>
+                    <%= listUserNo[i].lastname %> <%= listUserNo[i].firstname %> - <%= listUserNo[i].position %>
+                </li>
+                <% } %>
+            </ul>
+        </li>
+    </ul>
+    </div>
+</body>
+
+</html>
