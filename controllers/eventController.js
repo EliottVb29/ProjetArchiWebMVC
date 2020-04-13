@@ -34,7 +34,11 @@ exports.renderAddItemPage = function (req, res) {
 exports.renderUpdateItemPage = function (req, res) {
     console.log('rendering update event page');
     connection.query("Select * from event where idcal = ?", req.params.idcal, (error, data) => {
-        res.render('updateItem.ejs', data[0]);
+        console.log(data[0]);
+        let date = new Date(data[0].Date).toISOString();
+        data[0].Date = date.slice(0,10); 
+        console.log(data[0]);
+        res.render('updateItem.ejs', {event: data[0]});
     })
 };
 
@@ -100,9 +104,9 @@ exports.createItem = function (req, res) {
 exports.updateItem = function (req, res) {
     let type = req.body.type;
     let name = req.body.name;
-    let date = req.body.date;
+    let date = new Date(req.body.date);
     let idcal = req.body.idcal;
-    console.log("updating event with id: " + req.body.idcal + " ; type= " + type + " ; name= " + name + " ; date= " + date);
+    console.log("updating event with id: " + req.body.idcal + " ; type= " + type + " ; name= " + name + " ; date= " + req.body.date);
     let sql = "UPDATE event SET type=?, name=?, date=? WHERE idcal = ?";
     let sqlQuery = connection.query(sql, [type, name, date, idcal],
         function (error, resultSQL) {

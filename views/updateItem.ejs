@@ -11,13 +11,13 @@
 <body>
     <h1>Event Update : </h1>
     <form action="/calendar/update" method="POST">
-        <input type="hidden" value="<%= idcal %>" name="idcal">
+        <input type="hidden" value="<%= event.idcal %>" name="idcal">
         <label for="ltype">Type :</label>
-        <input id="ltype" type="text" name="type" value ="<%= Type %>"><br>
+        <input id="ltype" type="text" name="type" value ="<%= event.Type %>"><br>
         <label for="lname">Name :</label>
-        <input id="lname" type="text" name="name" value ="<%= Name %>"><br>
+        <input id="lname" type="text" name="name" value ="<%= event.Name %>"><br>
         <label for="ldate">Date :</label>
-        <input id="ldate" type="date" name="date" value ="<%= Date %>"><br>
+        <input id="ldate" type="date" name="date" value ="<%= event.Date %>"><br>
         <input type="submit" name="save" value="Sauver"><br>
     </form>
 
