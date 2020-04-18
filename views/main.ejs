@@ -5,7 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title> Planning Sportif </title>
 </head>
 
@@ -13,7 +14,7 @@
     <form method="POST">
         <nav class="navbar navbar-dark bg-dark">
             <a class="navbar-brand" href="/calendar">
-                <h1 class ="display-4">White Sharks</h1>
+                <h1 class="display-4">White Sharks</h1>
             </a>
             <a>
                 <label for="user-select" id="profile">Profil</label>
@@ -25,7 +26,8 @@
                     <% } %>
                 </select>
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -45,10 +47,12 @@
         </nav>
         <div class="jumbotron">
             <h1 class="display-4"> Events list </h1>
-            <p class="lead"> Thanks to this app, you will be able to register to trainings and matchs with your sport team ! </p>
+            <p class="lead"> Thanks to this app, you will be able to register to trainings and matchs with your sport
+                team ! </p>
             <hr class="my-4">
             <p>If u want to add a new event, just click here below.</p>
-            <a href="/calendar/add" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add an event</a>
+            <a href="/calendar/add" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add an
+                event</a>
         </div>
 
         <div class="container-fluid liste">
@@ -56,27 +60,38 @@
                 <% for(var i = 0 ; i < events.length ; i++) {  %>
                 <div class="container-fluid item">
                     <div class="row">
-                        <li>
-                            <div class="col-md-12">
+                        <div class="col">
+                            <li>
                                 <h3><%= events[i].idcal %> - <%= events[i].Type %> - <%= events[i].Name %> -
                                     <%= events[i].Date %></h3>
-                                <a href='/calendar/update/<%= events[i].idcal %>' class="btn btn-warning btn-sm active" role="button" aria-pressed="true"> Edit </a>
-                                <a href='/calendar/remove/<%= events[i].idcal %>' class="btn btn-danger btn-sm active" role="button" aria-pressed="true"> Delete </a> </br>
-                            </div>
-                            <div class="col-md-12">
-                                <strong>Will u be there ? </strong> <a href='/calendar/details/<%= events[i].idcal %>' class="btn btn-info btn-sm"> View details </a>
+
+                                <strong>Will u be there ? </strong> <a href='/calendar/details/<%= events[i].idcal %>'
+                                    class="btn btn-info btn-sm"> View details </a>
                                 </br>
+                            </li>
+                        </div>
+                        <div class="col">
+                            <div class="col">
+                                <div class="row justify-content-end">
+                                    <a href='/calendar/update/<%= events[i].idcal %>'
+                                        class="btn btn-warning btn-sm active boutons" role="button" aria-pressed="true"> Edit
+                                    </a>
+                                    <a href='/calendar/remove/<%= events[i].idcal %>'
+                                        class="btn btn-danger btn-sm active boutons" role="button" aria-pressed="true"> Delete
+                                    </a> </br>
+                                </div>
+                                <div class="row justify-content-end">
+                                    <input type="submit" class="btn btn-success btn-sm boutons" name="submit_yes" value="YES"
+                                        formaction="/calendar/yes/<%= events[i].idcal %>">
+                                    </input>
+                                    <input type="submit" class="btn btn-danger btn-sm boutons" name="submit_no" value="NO"
+                                        formaction="/calendar/no/<%= events[i].idcal %>">
+                                    </input>
+                                </div>
                             </div>
-                            <div class="col-md-12">
-                                <input type="submit" class="btn btn-success btn-sm" name="submit_yes" value="YES"
-                                    formaction="/calendar/yes/<%= events[i].idcal %>">
-                                </input>
-                                <input type="submit" class="btn btn-danger btn-sm" name="submit_no" value="NO"
-                                    formaction="/calendar/no/<%= events[i].idcal %>">
-                                </input>
-                            </div>
-                        </li>
+                        </div>
                     </div>
+
                 </div>
                 <% } %>
             </ul>
