@@ -23,7 +23,7 @@ router.get('/calendar/details/:idcal', eventController.renderDetailsItem);
 
 router.post('/calendar/new', eventController.createItem);
 
-router.post('/calendar/update', eventController.updateItem);
+router.post('/calendar/update/:idcal', eventController.updateItem);
 
 router.post('/calendar/yes/:idcal', eventController.updateYes);
 
