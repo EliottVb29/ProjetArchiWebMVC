@@ -21,7 +21,7 @@ router.get('/calendar/details/:idcal', eventController.renderDetailsItem);
 
 //POST CALENDAR
 
-router.post('/calendar/new', eventController.createItem);
+router.post('/calendar/add', eventController.createItem);
 
 router.post('/calendar/update/:idcal', eventController.updateItem);
 
@@ -43,9 +43,9 @@ router.get('/members/remove/:iduser', userController.removeUser);
 
 //POST MEMBERS
 
-router.post('/members/new', userController.userNew);
+router.post('/members/add', userController.userNew);
 
-router.post('/members/update/', userController.updateUser);
+router.post('/members/update/:iduser', userController.updateUser);
 
 
 module.exports = router;
