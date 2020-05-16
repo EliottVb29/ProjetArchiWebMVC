@@ -1,12 +1,16 @@
+//Appel aux modèles 
 let Event = require('../models/eventModel.js');
 let User = require('../models/userModel.js');
+
+// Listes
 let eventList = [];
 let userList = [];
+
+//Appel à la db
 let connection = require('../db.js');
 
 //Pages Rendering
 exports.renderMainPage = function (req, res) {
-    console.log('rendering main page');
     getMembersFromDb();
     connection.query("SELECT * from event;", function (error, resultSQL) {
         if (error) {
@@ -18,33 +22,27 @@ exports.renderMainPage = function (req, res) {
             eventList.forEach(event => {
                 event.Date = new Date(event.Date).toDateString();
             });
-
             res.render('main.ejs', { events: eventList, users: userList });
         }
     });
 }
 
 exports.renderAddItemPage = function (req, res) {
-    console.log('rendering add event page');
-    res.render('addItem.ejs', { label: "", idcal: "-1" });
+    res.render('addItem.ejs');
 
 };
 
 
 exports.renderUpdateItemPage = function (req, res) {
-    console.log('rendering update event page');
     connection.query("Select * from event where idcal = ?", req.params.idcal, (error, data) => {
-        console.log(data[0]);
-        let date = new Date(data[0].Date).toISOString();
-        data[0].Date = date.slice(0,10); 
-        console.log(data[0]);
+        let date = new Date(data[0].Date).toISOString(); //Norme ISO DATA 
+        data[0].Date = date.slice(0,10); // 10 premiers caracteres pour avoir un format "normal"
         res.render('updateItem.ejs', {event: data[0]});
     })
 };
 
 
 exports.renderDetailsItem = function (req, res) {
-    console.log("renderDetails");
     let sqlevent = "select type, name, date from event where idcal = ?";
     let sql = "Select lastname, firstname, position, name, type, date, presence" +
         " from event join register_to on register_to.FK_idcal = event.idcal " +
@@ -70,9 +68,6 @@ exports.renderDetailsItem = function (req, res) {
                             listUserNo.push(new User(presence.lastname, presence.firstname, presence.position, null));
                         }
                     });
-                    console.log(event);
-                    console.log(listUserNo);
-                    console.log(listUserYes);
                     res.render('detailsEvent.ejs', { users: userList, event: event, listUserYes: listUserYes, listUserNo: listUserNo });
                 }
             });
@@ -89,8 +84,6 @@ exports.createItem = function (req, res) {
     let date = req.body.date;
     if (type != '' && name != '' && date != '') {
         let event = new Event(type, name, date);
-        console.log(event);
-        console.log("Event list = " + eventList);
         connection.query("INSERT INTO event set ?", event, function (error, resultSQL) {
             if (error) {
                 res.status(400).send(error);
@@ -106,9 +99,8 @@ exports.updateItem = function (req, res) {
     let name = req.body.name;
     let date = new Date(req.body.date);
     let idcal = req.body.idcal;
-    console.log("updating event with id: " + req.body.idcal + " ; type= " + type + " ; name= " + name + " ; date= " + req.body.date);
     let sql = "UPDATE event SET type=?, name=?, date=? WHERE idcal = ?";
-    let sqlQuery = connection.query(sql, [type, name, date, idcal],
+    connection.query(sql, [type, name, date, idcal],
         function (error, resultSQL) {
             if (error) {
                 console.log(error);
@@ -118,13 +110,10 @@ exports.updateItem = function (req, res) {
             }
             res.status(202).redirect('/calendar');
         });
-
-    console.log("Query applied: " + sqlQuery);
 }
 
 
 exports.removeItem = function (req, res) {
-    console.log('removing event id: ' + req.params.idcal);
     let sql = "DELETE FROM register_to WHERE FK_idcal = ?";
     connection.query(sql, [req.params.idcal], (error, resultSQL) => {
         if (error) {
@@ -145,7 +134,6 @@ exports.removeItem = function (req, res) {
 }
 
 exports.updateYes = function (req, res) {
-    console.log('User ' + req.body.users + ' said Yes for: ' + req.params.idcal);
     getMembersFromDb();
     let sql = "select FK_idcal, FK_iduser from register_to where FK_idcal = ? and FK_iduser = ?";
     connection.query(sql, [req.params.idcal, req.body.users], (error, resultSQL) => {
@@ -153,7 +141,6 @@ exports.updateYes = function (req, res) {
             res.status(400).send(error);
         }
         else {
-            console.log(resultSQL);
             if (resultSQL.length === 0) {
                 let sql = "INSERT INTO register_to (FK_idcal, FK_iduser, presence) VALUES (?, ?, 'YES')";
                 connection.query(sql, [req.params.idcal, req.body.users], (error, resultSQL) => {
@@ -181,16 +168,12 @@ exports.updateYes = function (req, res) {
 }
 
 exports.updateNo = function (req, res) {
-
-    console.log('User ' + req.body.users + ' said No for: ' + req.params.idcal);
-
     let sql = "select FK_idcal, FK_iduser from register_to where FK_idcal = ? and FK_iduser = ?"
     connection.query(sql, [req.params.idcal, req.body.users], (error, resultSQL) => {
         if (error) {
             res.status(400).send(error);
         }
         else {
-            console.log(resultSQL);
             if (resultSQL.length === 0) {
                 let sql = "INSERT INTO register_to (FK_idcal, FK_iduser, presence) VALUES (?, ?, 'NO')";
                 connection.query(sql, [req.params.idcal, req.body.users], (error, resultSQL) => {
